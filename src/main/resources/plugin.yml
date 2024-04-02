@@ -1,0 +1,4 @@
+name: firstPlugin
+version: '${project.version}'
+main: lzy.lugin.firstplugin.FirstPlugin
+api-version: 1.20
