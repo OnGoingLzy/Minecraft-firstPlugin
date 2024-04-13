@@ -2,3 +2,9 @@ name: firstPlugin
 version: '${project.version}'
 main: lzy.lugin.firstplugin.FirstPlugin
 api-version: 1.20
+
+commands:
+  get:
+    description: Give the player a special equipment
+    usage: /get equipment
+    permission: ''

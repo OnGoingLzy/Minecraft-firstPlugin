@@ -1,9 +1,17 @@
 package lzy.lugin.firstplugin;
 
+import lzy.lugin.firstplugin.command.GetEquipmentCommand;
+import lzy.lugin.firstplugin.items.Equipment;
+import lzy.lugin.firstplugin.myListener.CustomEquipment;
 import lzy.lugin.firstplugin.myListener.DeathListener;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -33,9 +41,14 @@ public final class FirstPlugin extends JavaPlugin {
 
         // 注册事件监听器并传递掉落物品数量
         getServer().getPluginManager().registerEvents(new DeathListener(dropItemCount), this);
+        getServer().getPluginManager().registerEvents(new CustomEquipment(), this);
+        // 注册命令执行器
+        getCommand("get").setExecutor(new GetEquipmentCommand(new Equipment(Equipment.Type.HELMET, 10.0f, 0.8f)));
         // 使用插件的日志记录器输出日志信息
         getLogger().info("插件启动!");
     }
+
+
 
     @Override
     public void onDisable() {

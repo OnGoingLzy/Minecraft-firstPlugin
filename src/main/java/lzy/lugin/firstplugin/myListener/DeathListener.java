@@ -1,15 +1,21 @@
 package lzy.lugin.firstplugin.myListener;
 
+import org.bukkit.GameRule;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static org.bukkit.Bukkit.getLogger;
 
 public class DeathListener implements Listener {
 
@@ -19,12 +25,13 @@ public class DeathListener implements Listener {
         this.dropItemCount = dropItemCount;
     }
 
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-
+        GameRule<Boolean> gameRule = GameRule.KEEP_INVENTORY;
         // 检查服务器规则是否为死亡掉落物品
-        if (!player.getWorld().getGameRuleValue("keepInventory").equals("false")) {
+        if (Boolean.FALSE.equals(player.getWorld().getGameRuleValue(gameRule))) {
             return; // 若规则不为死亡掉落物品，则不执行下面的逻辑
         }
 
